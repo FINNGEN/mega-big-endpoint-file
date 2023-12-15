@@ -516,6 +516,9 @@ defmodule EndpointDB.Stats do
 
       "false" ->
         false
+
+      "␀" ->
+        nil
     end
   end
 
@@ -527,13 +530,16 @@ defmodule EndpointDB.Stats do
       "false" ->
         false
 
-      "" ->
+      "␀" ->
         nil
     end
   end
 
   defp parse_maybe_map_variants_genes(value) do
     case value do
+      "␀" ->
+        nil
+
       "" ->
         nil
 

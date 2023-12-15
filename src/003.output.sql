@@ -11,6 +11,10 @@ WITH
             prior_ci_upper AS `freg_surv.fr-r11.endpoint1_hr_ci_upper`,
             prior_pval AS `freg_surv.fr-r11.endpoint1_hr_pval`
         FROM freg_surv
+
+        -- For some reason this input file has duplicate rows on (prior, outcome),
+        -- so I get rid of them by using the 'LIMIT 1 BY ...' trick.
+        LIMIT 1 BY (prior, outcome)
     ),
     out_ldsc_summary AS
     (
@@ -223,6 +227,7 @@ WITH
         FROM mega_join
         LEFT OUTER JOIN cc2 USING (endpoint2)
     )
+
 SELECT
     -- Here we order the columns
     `endpoint1`,
@@ -241,8 +246,8 @@ SELECT
     `ldsc_heritability.fg-r12.h2.endpoint2`,
     `ldsc_heritability.fg-r12.h2_se.endpoint2`,
     `endpoint_definitions.fg-r12.longname.endpoint1`,
-    `endpoint_definitions.fg-r12.longname.endpoint2`,
     `endpoint_definitions.fg-r12.is_core?.endpoint1`,
+    `endpoint_definitions.fg-r12.longname.endpoint2`,
     `endpoint_definitions.fg-r12.is_core?.endpoint2`,
     `pheno_corr.fg-r12.jaccard_index`,
     `pheno_corr.fg-r12.case_overlap_N`,

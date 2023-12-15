@@ -1,6 +1,15 @@
 INSERT INTO config FROM INFILE 'config.json' FORMAT JSONEachRow;
 
-INSERT INTO freg_surv SELECT *
+INSERT INTO endpoint_definitions SELECT
+    NAME as name,
+    LONGNAME as longname,
+    multiIf(CORE_ENDPOINTS = 'yes', 'true', 'false') as `is_core?`
+    FROM file((
+        SELECT path
+        FROM config
+        WHERE name = 'finngen-endpoint-definitions'
+    ), CSVWithNames)
+;
 
 INSERT INTO freg_surv SELECT
     prior,

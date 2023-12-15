@@ -47,6 +47,20 @@ WITH
     ),
 
     -- Handling 1-endpoint statistics
+    definition1 AS (
+        SELECT
+            name AS endpoint1,
+            longname AS `endpoint_definitions.fg-r12.longname.endpoint1`,
+            `is_core?` AS `endpoint_definitions.fg-r12.is_core?.endpoint1`
+        FROM endpoint_definitions
+    ),
+    definition2 AS (
+        SELECT
+            name AS endpoint2,
+            longname AS `endpoint_definitions.fg-r12.longname.endpoint2`,
+            `is_core?` AS `endpoint_definitions.fg-r12.is_core?.endpoint2`
+        FROM endpoint_definitions
+    ),
     her1 AS
     (
         SELECT
@@ -173,6 +187,18 @@ WITH
     ),
 
     -- Joining the 1-endpoint stats
+    mega_join AS
+    (
+        SELECT *
+        FROM mega_join
+        LEFT OUTER JOIN definition1 USING (endpoint1)
+    ),
+    mega_join AS
+    (
+        SELECT *
+        FROM mega_join
+        LEFT OUTER JOIN definition2 USING (endpoint2)
+    ),
     mega_join AS
     (
         SELECT *

@@ -6,6 +6,15 @@ CREATE TABLE config
 ENGINE = MergeTree
 PRIMARY KEY name;
 
+CREATE TABLE endpoint_definitions
+(
+    `name` String,
+    `longname` String,
+    `is_core?` Bool
+)
+ENGINE = MergeTree
+PRIMARY KEY name;
+
 CREATE TABLE freg_surv
 (
     `prior` String,

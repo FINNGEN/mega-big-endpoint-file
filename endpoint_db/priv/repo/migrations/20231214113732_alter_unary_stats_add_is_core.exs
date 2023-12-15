@@ -3,7 +3,10 @@ defmodule EndpointDB.Repo.Migrations.AlterUnaryStatsAddIsCore do
 
   def change do
     alter table(:unary_stats) do
-      add :is_core, :boolean, null: false
+      # We allow null values since some endpoints (like 'HEIGHT_IRN') are made
+      # outside of the endpoint definitions file, which is the only source
+      # of 'is_core' information.
+      add :is_core, :boolean, null: true
     end
   end
 end

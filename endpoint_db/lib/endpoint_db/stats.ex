@@ -336,6 +336,7 @@ defmodule EndpointDB.Stats do
       # Unary stats
       endpoint1_unary_stats = %{
         endpoint_short_name: rec.endpoint1,
+        endpoint_long_name: rec.long_name_endpoint1,
         n_cases: rec.n_cases_endpoint1,
         n_controls: rec.n_controls_endpoint1,
         n_excl: rec.n_excl_endpoint1,
@@ -347,6 +348,7 @@ defmodule EndpointDB.Stats do
 
       endpoint2_unary_stats = %{
         endpoint_short_name: rec.endpoint2,
+        endpoint_long_name: rec.long_name_endpoint2,
         n_cases: rec.n_cases_endpoint2,
         n_controls: rec.n_controls_endpoint2,
         n_excl: rec.n_excl_endpoint2,
@@ -449,13 +451,17 @@ defmodule EndpointDB.Stats do
       "fg_cases_controls.fg-r12.n_cases.endpoint2" => n_cases_endpoint2,
       "fg_cases_controls.fg-r12.n_controls.endpoint2" => n_controls_endpoint2,
       "fg_cases_controls.fg-r12.n_excl.endpoint2" => n_excl_endpoint2,
-      "endpoint_definition.fg-r12.is_core?.endpoint1" => is_core_endpoint1,
-      "endpoint_definition.fg-r12.is_core?.endpoint2" => is_core_endpoint2
+      "endpoint_definitions.fg-r12.longname.endpoint1" => long_name_endpoint1,
+      "endpoint_definitions.fg-r12.is_core?.endpoint1" => is_core_endpoint1,
+      "endpoint_definitions.fg-r12.longname.endpoint2" => long_name_endpoint2,
+      "endpoint_definitions.fg-r12.is_core?.endpoint2" => is_core_endpoint2
     } = row
 
     %{
       endpoint1: endpoint1,
       endpoint2: endpoint2,
+      long_name_endpoint1: long_name_endpoint1,
+      long_name_endpoint2: long_name_endpoint2,
       nindivs_prior_then_outcome: parse_maybe_integer(nindivs_prior_then_outcome),
       endpoint1_hr: parse_maybe_float(endpoint1_hr),
       endpoint1_hr_ci_lower: parse_maybe_float(endpoint1_hr_ci_lower),

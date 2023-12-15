@@ -1,6 +1,15 @@
 INSERT INTO config FROM INFILE 'config.json' FORMAT JSONEachRow;
 
 INSERT INTO freg_surv SELECT *
+
+INSERT INTO freg_surv SELECT
+    prior,
+    outcome,
+    nindivs_prior_outcome,
+    prior_hr,
+    prior_ci_lower,
+    prior_ci_upper,
+    prior_pval
 FROM file((
     SELECT path
     FROM config
@@ -61,7 +70,7 @@ FROM file((
     SELECT path
     FROM config
     WHERE name = 'finngen-cases-controls'
-), CSVWithNames);
+), JSONEachRow);
 
 INSERT INTO variants SELECT
     endpoint1,
